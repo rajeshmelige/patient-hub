@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  app:
+    image: patient-hub
+    container_name: patient-hub-app
+    ports:
+      - 8084:8084
+    environment:
+      - spring.datasource.url=jdbc:sqlserver://db;databaseName=master;encrypt=true;trustServerCertificate=true
+      - spring.datasource.username=sa
+      - spring.datasource.password=Password123
+      - spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+      - spring.jpa.database-platform=org.hibernate.dialect.SQLServer2012Dialect
+      - spring.jpa.show-sql=true
+      - spring.jpa.hibernate.dialect=org.hibernate.dialect.SQLServer2012Dialect
+      - spring.jpa.hibernate.ddl-auto=create-drop
+      - spring.profiles.active=prod
+    depends_on:
+      - db
+  db:
+    image: mcr.microsoft.com/azure-sql-edge
+    container_name: patient-hub-sqlserver-db
+    platform: linux/arm64  # Use the ARM64 version for M1 chip
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Password123"  # Replace with your desired password
+    ports:
+      - "1433:1433"
+    volumes:
+      - /Users/rajesh_macbook/my_source/docker/volume/mssql/data:/var/opt/mssql
