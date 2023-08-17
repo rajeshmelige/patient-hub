@@ -27,8 +27,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-;
-
 @Service
 public class PatientServiceImpl implements PatientService {
 
@@ -89,8 +87,7 @@ public class PatientServiceImpl implements PatientService {
     })
     @Override
     public PatientDto updatePatientDetails(PatientDto patient) throws Exception {
-        Optional<Patient> patientOptional = Optional.empty();
-        patientOptional = patientRepository.findByEmail(patient.getEmail());
+        Optional<Patient> patientOptional = patientRepository.findByEmail(patient.getEmail());
         if(!patientOptional.isPresent()) {
             patientOptional = patientRepository.findByMobile(patient.getMobile());
         }
