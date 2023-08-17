@@ -102,9 +102,9 @@ public class PatientServiceImpl implements PatientService {
         patientEntity.setEmail(patient.getEmail());
 
         Address address = patientEntity.getAddress();
-        address.setStreet(patient.getAddress().getCity());
+        address.setStreet(patient.getAddress().getStreet());
         address.setCity(patient.getAddress().getCity());
-        address.setPincode(patient.getAddress().getCity());
+        address.setPincode(patient.getAddress().getPincode());
 
         patientEntity.setAddress(address);
 
