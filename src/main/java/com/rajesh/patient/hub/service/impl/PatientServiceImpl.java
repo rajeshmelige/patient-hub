@@ -23,8 +23,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.UUID;
 
 @Service
@@ -137,6 +139,7 @@ public class PatientServiceImpl implements PatientService {
             LOGGER.error("Caught thread Interrupted exception");
         }
         List<Patient> patients = patientRepository.findAll();
+        Queue<Patient> pq = new LinkedList<>();
         List<PatientDto> patientDtos = new ArrayList<>();
         patients.stream().forEach(p -> {
             patientDtos.add(mapPatientEntitytoDto(p));
